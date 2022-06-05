@@ -8,6 +8,7 @@ const log: Logger = new Logger();
 const app: Express = express();
 const port = process.env.PORT;
 
+app.use(express.static(__dirname + "/public"));
 app.set("views", path.join(__dirname, "../src/views"));
 app.set("view engine", "ejs");
 

@@ -10,6 +10,7 @@ require("dotenv/config");
 const log = new tslog_1.Logger();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
+app.use(express_1.default.static("public"));
 app.set("views", path_1.default.join(__dirname, "../src/views"));
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
