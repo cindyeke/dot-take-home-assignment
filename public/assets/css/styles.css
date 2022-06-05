@@ -30,10 +30,6 @@ main {
   order: 1;
 }
 
-/* main > div {
-  height: 100pc;
-} */
-
 form {
   display: flex;
   flex-direction: column;
@@ -124,7 +120,20 @@ h1 {
     align-items: center;
   }
 
-  input {
+  input,
+  form > div {
     width: 60%;
+  }
+
+  form > div {
+    margin-top: 1em;
+    font-size: 0.6em;
+    color: #303030;
+    overflow-wrap: break-word;
+  }
+
+  form > div > div {
+    color: #ff5455;
+    margin-bottom: 1em;
   }
 }

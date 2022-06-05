@@ -1,21 +1,38 @@
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
+import * as jsonServer from "json-server";
+import { readFileSync } from "fs";
+import { join } from "path";
 import { Logger } from "tslog";
-import path from "path";
 import "dotenv/config";
+import { checkUsername } from "./helpers";
 
+const port = process.env.PORT;
 const log: Logger = new Logger();
 
-const app: Express = express();
-const port = process.env.PORT;
+const server = jsonServer.create();
+server.use(jsonServer.defaults());
+server.use(jsonServer.bodyParser);
+server.use(express.static(__dirname + "/public"));
+server.set("views", join(__dirname, "../src/views"));
+server.set("view engine", "ejs");
 
-app.use(express.static(__dirname + "/public"));
-app.set("views", path.join(__dirname, "../src/views"));
-app.set("view engine", "ejs");
+const { users } = JSON.parse(
+  readFileSync("./src/users.json", { encoding: "utf-8" }),
+);
 
-app.get("/", (req: Request, res: Response) => {
+server.get("/", (req: Request, res: Response) => {
   res.render("index");
 });
 
-app.listen(port, () => {
+server.post("/signup", (req: Request, res: Response) => {
+  const { username } = req.body;
+
+  const suggestedUsernames: string = checkUsername(users, username);
+  res.render("index", {
+    suggestedUsernames,
+  });
+});
+
+server.listen(port, () => {
   log.info(`Server running on PORT ${port}`);
 });

@@ -11,16 +11,18 @@
     <section>Dot</section>
     <main>
         <h1>Create Account</h1>
-        <form>
-            <input type="text" placeholder="full name" />
-            <input type="email" placeholder="email" />
-            <input type="text" placeholder="username" />
-            <input type="password" placeholder="password" />
+        <form action="/signup" method="POST">
+            <input type="text" name="fullname" placeholder="full name" />
+            <input type="email" name="email" placeholder="email" />
+            <input type="text" name="username" placeholder="username" />
+            <input type="password" name="password" placeholder="password" />
             <input type="submit" value="Sign Up" />
+
+            <div>
+                <div>This username is already taken. You can choose one of the suggested usernames</div>
+                <span><%= typeof suggestedUsernames != "undefined" ? suggestedUsernames : "" %></span>
+            </div>
         </form>
-        <div>
-            
-        </div>
     </main>
 </body>
 </html>
